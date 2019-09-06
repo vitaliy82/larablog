@@ -35,12 +35,8 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         try {
-            $comment = $this->commentRepository->create($request->all());
-            $response = [
-                'message' => 'Post created.',
-                'data'    => $comment->toArray(),
-            ];
-            return redirect()->back()->with('message', $response['message']);
+            $this->commentRepository->create($request->all());
+            return redirect()->back()->with('success', 'Post commented.');
         } catch (ValidatorException $e) {
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }

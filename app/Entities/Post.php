@@ -41,7 +41,7 @@ class Post extends Model implements Transformable
      */
     public function comments()
     {
-        return $this->hasMany('App\Entities\Comment', 'id');
+        return $this->hasMany('App\Entities\Comment', 'post_id','id');
     }
 
     /**

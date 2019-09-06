@@ -28,11 +28,4 @@ class PostCreateRequest extends FormRequest
         ];
     }
 
-    protected function  validationData()
-    {
-        $this->merge(['text' => resolve('stopWord')::filter($this->all()['text'])]);
-
-        return parent::validationData();
-    }
-
 }

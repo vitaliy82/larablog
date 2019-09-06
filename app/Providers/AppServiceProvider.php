@@ -7,7 +7,7 @@ use App\Observers\PostObserver;
 use App\Entities\Comment;
 use App\Observers\CommentObserver;
 use Illuminate\Support\ServiceProvider;
-use App\Rules\StopWords;
+use App\Tools\StopWords;
 
 class AppServiceProvider extends ServiceProvider
 {

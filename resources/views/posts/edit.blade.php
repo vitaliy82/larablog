@@ -17,7 +17,7 @@
             <textarea name="text" required>{{$post->text}}</textarea><br>
 
             <input type="submit" value="Edit">
-
+            @include('components.errors', ['errors' => $errors])
         </fieldset>
     </form>
 @endsection

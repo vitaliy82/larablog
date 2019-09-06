@@ -64,10 +64,10 @@ class PostsController extends Controller
      */
     public function create()
     {
-        if (auth()->user()->can('create', Post::class)) {
+        if (auth()->user()->can('create')) {
             return view('posts.create');
         }
-        return redirect()->route('post.index')->with('message', 'permission denied.');
+        return redirect()->route('post.index')->with('error', 'permission denied.');
     }
 
     /**
@@ -83,10 +83,12 @@ class PostsController extends Controller
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
+            $request->merge(['text' => resolve('stopWord')::filter($request->all()['text'])]);
             $post = $this->postRepository->create($request->all());
-            return redirect()->route('post.show', ['id' => $post->id])->with('message', 'Post Created.');
+
+            return redirect()->route('post.show', ['id' => $post->id])->with('success', 'Post Created.');
         } catch (ValidatorException $e) {
+
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
@@ -119,7 +121,7 @@ class PostsController extends Controller
             return view('posts.edit', compact('post'));
         }
 
-        return redirect()->route('post.index')->with('message', 'permission denied.');
+        return redirect()->route('post.index')->with('error', 'permission denied.');
     }
 
     /**
@@ -136,9 +138,10 @@ class PostsController extends Controller
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $request->merge(['text' => resolve('stopWord')::filter($request->all()['text'])]);
             $post = $this->postRepository->update($request->all(), $id);
 
-            return redirect()->route('post.show', ['id' => $post->id])->with('message', 'Post Updated.');
+            return redirect()->route('post.show', ['id' => $post->id])->with('success', 'Post Updated.');
         } catch (ValidatorException $e) {
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
@@ -157,6 +160,6 @@ class PostsController extends Controller
     {
         $this->postRepository->delete($id);
 
-        return redirect()->route('post.index')->with('message', 'Post deleted.');
+        return redirect()->route('post.index')->with('success', 'Post deleted.');
     }
 }

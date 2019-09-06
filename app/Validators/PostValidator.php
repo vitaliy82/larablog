@@ -19,12 +19,13 @@ class PostValidator extends LaravelValidator
      */
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
-		'required|min:2'	=>'	title=>required|min:2',
-		'sometimes|min:10'	=>'	content=>sometimes|min:10',
-	],
+            'title' => 'required|min:5',
+            'img' => 'required',
+            'text' => 'required|min:10',
+        ],
         ValidatorInterface::RULE_UPDATE => [
-		'required|min:2'	=>'	title=>required|min:2',
-		'sometimes|min:10'	=>'	content=>sometimes|min:10',
-	],
+            'title' => 'required|min:5',
+            'text' => 'required|min:10',
+        ],
     ];
 }

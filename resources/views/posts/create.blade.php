@@ -6,16 +6,16 @@
         <fieldset>
             <legend>Add post:</legend>
             Title:<br>
-            <input type="text" name="title" required><br>
+            <input type="text" name="title" value="{{ old('title') }}" required><br>
 
             Image:<br>
-            <input name="img" type="file" required>
+            <input name="img" type="file" value="{{old('img')}}" required>
 
             Text:<br>
-            <textarea name="text" required></textarea><br>
+            <textarea name="text" required>{{old('text')}} </textarea><br>
 
             <input type="submit" value="Add">
-
+            @include('components.errors', ['errors' => $errors])
         </fieldset>
     </form>
 @endsection

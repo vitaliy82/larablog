@@ -113,6 +113,7 @@
             <div class="row">
                 <div class="col-lg-8">
 
+                    @include('components.flash-message')
                     @yield('content')
 
                     <div class="row">
@@ -350,11 +351,10 @@
 </footer>
 <!--================ End Footer Area =================-->
 
-{{--<script src="vendors/jquery/jquery-3.2.1.min.js"></script>--}}
-{{--<script src="vendors/bootstrap/bootstrap.bundle.min.js"></script>--}}
-{{--<script src="vendors/owl-carousel/owl.carousel.min.js"></script>--}}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 {{--<script src="js/jquery.ajaxchimp.min.js"></script>--}}
-{{--<script src="js/mail-script.js"></script>--}}
 {{--<script src="js/main.js"></script>--}}
 </body>
 </html>
