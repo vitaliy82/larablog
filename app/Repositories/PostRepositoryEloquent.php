@@ -13,7 +13,7 @@ use App\Validators\PostValidator;
  *
  * @package namespace App\Repositories;
  */
-class PostRepositoryEloquent extends BaseRepository implements PostRepository
+class PostRepositoryEloquent extends CustomRepository implements PostRepository
 {
     /**
      * Specify Model class name
@@ -32,10 +32,8 @@ class PostRepositoryEloquent extends BaseRepository implements PostRepository
     */
     public function validator()
     {
-
         return PostValidator::class;
     }
-
 
     /**
      * Boot up the repository, pushing criteria
@@ -44,5 +42,5 @@ class PostRepositoryEloquent extends BaseRepository implements PostRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

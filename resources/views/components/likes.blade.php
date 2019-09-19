@@ -1,8 +1,8 @@
 <div>
     @if($e->userLike())
-        <a href="{{ route('like.set', $e->id) }}">unlike </a>
+        <a href="{{ route('like.delete', $e->id) }}">unlike</a>
     @else
-        <a href="{{ route('like.set', $e->id) }}">like </a>
+        <a href="{{ route('like.create', $e->id) }}">like</a>
     @endif
-    Total:  {{count($e->likes)}}
+    Total: {{count($e->likes)}}
 </div>

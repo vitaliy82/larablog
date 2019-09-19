@@ -39,7 +39,7 @@ class PostsController extends Controller
     public function __construct(PostRepositoryEloquent $postRepository, PostValidator $validator)
     {
         $this->postRepository = $postRepository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
     }
 
     /**
@@ -50,8 +50,7 @@ class PostsController extends Controller
     public function index()
     {
         $this->postRepository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $posts = $this->postRepository->all();
-
+        $posts = $this->postRepository->paginate(3, request()->page);
         return view('posts.index', compact('posts'));
     }
 
@@ -64,7 +63,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        if (auth()->user()->can('create')) {
+        if (auth()->user()->can('create', Post::class)) {
             return view('posts.create');
         }
         return redirect()->route('post.index')->with('error', 'permission denied.');

@@ -12,7 +12,8 @@
             <input name="img" type="file" value="{{old('img')}}" required>
 
             Text:<br>
-            <textarea name="text" required>{{old('text')}} </textarea><br>
+            @include('components.editor', ['text' => old('text')])
+            <br>
 
             <input type="submit" value="Add">
             @include('components.errors', ['errors' => $errors])
