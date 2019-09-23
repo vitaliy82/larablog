@@ -51,9 +51,10 @@ class LikeController extends Controller
      * @param $uid
      */
     protected function setUserIfFirstLikedPost($id, $uid){
-        $post = $this->postRepository->find($id, ['user_like_first']);
+        $post = $this->postRepository->find($id);
         if(!$post['user_like_first']){
-            $this->postRepository->update(['user_like_first' => $uid], $id);
+            $data = ['user_like_first' => $uid, 'text' => $post['text'], 'title' => $post['title']];
+            $this->postRepository->update($data, $id);
         }
     }
 

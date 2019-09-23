@@ -14,6 +14,8 @@
         <div class="details mt-20">
             <a href="{{ route('post.show', $post->id) }}"><h3>{{$post->title}}</h3></a>
             {!! $post->text !!}
+
+            @auth
             <form action="{{route('comment.store')}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <fieldset>
@@ -22,6 +24,7 @@
                     <input type="hidden" name="post_id" value="{{$post->id}}">
                 </fieldset>
             </form>
+            @endauth
 
             @include('components.likes', ['e' => $post])
 
