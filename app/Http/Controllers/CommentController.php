@@ -3,25 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Comment;
-use App\Repositories\CommentRepositoryEloquent;
-use App\Validators\PostValidator;
 use Illuminate\Http\Request;
-use Prettus\Validator\Contracts\ValidatorInterface;
+use App\Repositories\CommentRepository;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class CommentController extends Controller
 {
     /**
-     * @var commentRepositoryEloquent
+     * @var commentRepository
      */
     protected $commentRepository;
 
     /**
      * PostsController constructor.
      *
-     * @param CommentRepositoryEloquent $commentRepository
+     * @param CommentRepository $commentRepository
      */
-    public function __construct(CommentRepositoryEloquent $commentRepository)
+    public function __construct(CommentRepository $commentRepository)
     {
         $this->commentRepository = $commentRepository;
     }

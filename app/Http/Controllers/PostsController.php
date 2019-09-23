@@ -9,7 +9,7 @@ use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
-use App\Repositories\PostRepositoryEloquent;
+use App\Repositories\PostRepository;
 use App\Validators\PostValidator;
 use App\Entities\Post;
 
@@ -21,7 +21,7 @@ use App\Entities\Post;
 class PostsController extends Controller
 {
     /**
-     * @var PostRepositoryEloquent
+     * @var PostRepository
      */
     protected $postRepository;
 
@@ -33,10 +33,10 @@ class PostsController extends Controller
     /**
      * PostsController constructor.
      *
-     * @param PostRepositoryEloquent $postRepository
+     * @param PostRepository $postRepository
      * @param PostValidator $validator
      */
-    public function __construct(PostRepositoryEloquent $postRepository, PostValidator $validator)
+    public function __construct(PostRepository $postRepository, PostValidator $validator)
     {
         $this->postRepository = $postRepository;
         $this->validator = $validator;
@@ -49,7 +49,6 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $this->postRepository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $posts = $this->postRepository->paginate(3, request()->page);
         return view('posts.index', compact('posts'));
     }
@@ -82,7 +81,9 @@ class PostsController extends Controller
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-            $request->merge(['text' => resolve('stopWord')::filter($request->all()['text'])]);
+
+
+            $request->merge(['text' => resolve('stopWord')->filter($request->all()['text'])]);
             $post = $this->postRepository->create($request->all());
 
             return redirect()->route('post.show', ['id' => $post->id])->with('success', 'Post Created.');
@@ -137,7 +138,7 @@ class PostsController extends Controller
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-            $request->merge(['text' => resolve('stopWord')::filter($request->all()['text'])]);
+            $request->merge(['text' => resolve('stopWord')->filter($request->all()['text'])]);
             $post = $this->postRepository->update($request->all(), $id);
 
             return redirect()->route('post.show', ['id' => $post->id])->with('success', 'Post Updated.');

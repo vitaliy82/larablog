@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 
-use App\Repositories\LikeRepositoryEloquent;
-use App\Repositories\PostRepositoryEloquent;
+use App\Repositories\LikeRepository;
+use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
@@ -13,7 +13,7 @@ class LikeController extends Controller
     private  $likeRepository;
     private  $postRepository;
 
-    public function __construct(LikeRepositoryEloquent $likeRepository, PostRepositoryEloquent $postRepository)
+    public function __construct(LikeRepository $likeRepository, PostRepository $postRepository)
     {
         $this->likeRepository = $likeRepository;
         $this->postRepository = $postRepository;

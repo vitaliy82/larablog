@@ -5,7 +5,7 @@
         @method('PUT')
         {{ csrf_field() }}
         <fieldset>
-            <legend>Add post:</legend>
+            <legend>Edit post:</legend>
             Title:<br>
             <input type="text" name="title" required  value="{{$post->title}}"><br>
             Image:<br>

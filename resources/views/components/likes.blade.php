@@ -1,4 +1,4 @@
-<div>
+<span>
     @auth
         @if($e->userLike())
             <a href="{{ route('like.delete', $e->id) }}">unlike</a>
@@ -7,4 +7,4 @@
         @endif
     @endauth
     Total @guest likes @endguest: {{count($e->likes)}}
-</div>
+</span>

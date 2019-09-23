@@ -2,17 +2,18 @@
 
 namespace App\Repositories;
 
+use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\PostRepository;
-use App\Entities\Post;
-use App\Validators\PostValidator;
+use App\Repositories\StopWordRepository;
+use App\Entities\StopWord;
+use App\Validators\StopWordValidator;
 
 /**
- * Class PostRepositoryEloquent.
+ * Class StopWordRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class PostRepositoryEloquent extends CustomRepository implements PostRepository
+class StopWordRepositoryEloquent extends BaseRepository implements StopWordRepository
 {
     /**
      * Specify Model class name
@@ -21,7 +22,7 @@ class PostRepositoryEloquent extends CustomRepository implements PostRepository
      */
     public function model()
     {
-        return Post::class;
+        return StopWord::class;
     }
 
     /**
@@ -31,8 +32,10 @@ class PostRepositoryEloquent extends CustomRepository implements PostRepository
     */
     public function validator()
     {
-        return PostValidator::class;
+
+        return StopWordValidator::class;
     }
+
 
     /**
      * Boot up the repository, pushing criteria
@@ -41,5 +44,5 @@ class PostRepositoryEloquent extends CustomRepository implements PostRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-
+    
 }

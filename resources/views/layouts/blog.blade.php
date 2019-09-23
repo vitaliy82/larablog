@@ -7,7 +7,8 @@
     <title>Sensive Blog - Home</title>
     <link rel="icon" href="img/Fevicon.png" type="image/png">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
     <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
@@ -24,7 +25,8 @@
             <div class="container box_1620">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -46,6 +48,11 @@
                         </li>
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 
+                        @can('create', App\Entities\Post::class)
+                            <li>
+                                <a href="{{ route('post.create') }}">Create post</a>
+                            </li>
+                        @endcan
 
                         <!-- Authentication Links -->
                         @guest
@@ -77,7 +84,6 @@
                             </li>
                         @endguest
 
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right navbar-social">
                         <li><a href="#"><i class="ti-facebook"></i></a></li>
@@ -100,7 +106,6 @@
                 <div class="hero-banner__content">
                     <h3>Tours & Travels</h3>
                     <h1>Amazing Places on earth</h1>
-                    <h4>December 12, 2018</h4>
                 </div>
             </div>
         </div>

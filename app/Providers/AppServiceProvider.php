@@ -30,9 +30,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Post::observe(PostObserver::class);
         Comment::observe(CommentObserver::class);
-
-        $this->app->singleton('stopWord', function ($app) {
-            return StopWords::class;
-        });
+        $this->app->singleton('stopWord', StopWords::class);
     }
 }

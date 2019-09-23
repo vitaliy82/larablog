@@ -15,6 +15,15 @@
             <a href="{{ route('post.show', $post->id) }}"><h3>{{$post->title}}</h3></a>
             {!! $post->text !!}
 
+            @include('components.likes', ['e' => $post]) &nbsp;&nbsp;&nbsp;
+
+            @can('update', $post)
+                <a href="{{ route('post.edit', $post->id) }}">Edit</a>
+            @endcan
+            @can('delete', $post)
+                <a href="{{ route('post.delete', $post->id) }}">Delete</a>
+            @endcan
+
             @auth
             <form action="{{route('comment.store')}}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -25,15 +34,6 @@
                 </fieldset>
             </form>
             @endauth
-
-            @include('components.likes', ['e' => $post])
-
-            @can('update', $post)
-                <a href="{{ route('post.edit', $post->id) }}">Edit</a>
-            @endcan
-            @can('delete', $post)
-                <a href="{{ route('post.delete', $post->id) }}">Delete</a>
-            @endcan
 
             @foreach ($post->comments as $comment)
                <div>
