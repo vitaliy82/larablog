@@ -2,11 +2,10 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\StopWordRepository;
 use App\Entities\StopWord;
 use App\Validators\StopWordValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class StopWordRepositoryEloquent.
@@ -44,5 +43,5 @@ class StopWordRepositoryEloquent extends BaseRepository implements StopWordRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

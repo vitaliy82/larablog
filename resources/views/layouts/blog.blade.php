@@ -36,7 +36,7 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav justify-content-center">
-                        <li class="nav-item active"><a class="nav-link" href="{{ route('post.index') }}">Home</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="archive.html">Archive</a></li>
                         <li class="nav-item"><a class="nav-link" href="category.html">Category</a>
                         <li class="nav-item submenu dropdown">

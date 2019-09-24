@@ -11,6 +11,7 @@ class Like extends Model
         'post_id',
         'user_id',
     ];
+    public $timestamps = false;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

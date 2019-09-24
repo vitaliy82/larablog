@@ -21,12 +21,12 @@ class Post extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-		'user_id',
+        'user_id',
         'user_like_first',
-		'title',
-		'text',
-		'img',
-	];
+        'title',
+        'text',
+        'img',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -41,7 +41,7 @@ class Post extends Model implements Transformable
      */
     public function comments()
     {
-        return $this->hasMany('App\Entities\Comment', 'post_id','id');
+        return $this->hasMany('App\Entities\Comment', 'post_id', 'id');
     }
 
     /**
@@ -49,13 +49,15 @@ class Post extends Model implements Transformable
      */
     public function likes()
     {
-        return $this->hasMany('App\Entities\Like',  'post_id',  'id' );
+        return $this->hasMany('App\Entities\Like', 'post_id', 'id');
     }
 
-
+    /**
+     * @return bool
+     */
     public function userLike()
     {
-        if(!auth()->guest()) {
+        if (!auth()->guest()) {
             return !!Like::where('post_id', $this->id)->where('user_id', auth()->user()->id)->first();
         }
         return false;

@@ -21,7 +21,7 @@ class StopWord extends Model implements Transformable
      * @var array
      */
     protected $fillable = [
-		'word',
-	];
+        'word',
+    ];
 
 }

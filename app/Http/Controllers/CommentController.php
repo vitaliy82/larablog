@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Entities\Comment;
-use Illuminate\Http\Request;
 use App\Repositories\CommentRepository;
+use Illuminate\Http\Request;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 class CommentController extends Controller
@@ -27,7 +27,7 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -43,8 +43,8 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Comment  $comment
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Entities\Comment $comment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Comment $comment)
@@ -55,7 +55,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Entities\Comment  $comment
+     * @param \App\Entities\Comment $comment
      * @return \Illuminate\Http\Response
      */
     public function destroy(Comment $comment)

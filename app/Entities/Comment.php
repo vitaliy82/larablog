@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -20,8 +21,20 @@ class Comment extends Model implements Transformable
         'text'
     ];
 
+    /**
+     * @return BelongsTo
+     */
     public function post()
     {
         return $this->belongsTo('App\Entities\Post', 'post_id', 'id');
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
+
 }
