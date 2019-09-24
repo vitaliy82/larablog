@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\StopWordCreateRequest;
-use App\Http\Requests\StopWordUpdateRequest;
 use App\Repositories\StopWordRepository;
 use App\Validators\StopWordValidator;
+use Illuminate\Http\Request;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class StopWordsController.
@@ -38,7 +35,7 @@ class StopWordsController extends Controller
     public function __construct(StopWordRepository $stopWordRepository, StopWordValidator $validator)
     {
         $this->stopWordRepository = $stopWordRepository;
-        $this->validator  = $validator;
+        $this->validator = $validator;
     }
 
     /**
@@ -55,13 +52,13 @@ class StopWordsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StopWordCreateRequest $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(StopWordCreateRequest $request)
+    public function store(Request $request)
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
@@ -75,28 +72,27 @@ class StopWordsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $stopWord = $this->stopWordRepository->find($id);
-
         return view('stopWords.edit', compact('stopWord'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  StopWordUpdateRequest $request
-     * @param  string            $id
+     * @param Request $request
+     * @param string $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(StopWordUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
@@ -109,11 +105,10 @@ class StopWordsController extends Controller
         }
     }
 
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */

@@ -11,7 +11,7 @@ class PostObserver
     /**
      * Handle the post "creating" event.
      *
-     * @param  \App\Entities\Post  $post
+     * @param \App\Entities\Post $post
      * @return void
      */
     public function creating(Post $post)
@@ -23,12 +23,12 @@ class PostObserver
     /**
      * Handle the post "updating" event.
      *
-     * @param  \App\Entities\Post  $post
+     * @param \App\Entities\Post $post
      * @return void
      */
     public function updating(Post $post)
     {
-        if ($post->img  instanceof UploadedFile) {
+        if ($post->img instanceof UploadedFile) {
             $this->saveImage($post);
         }
     }
@@ -39,7 +39,8 @@ class PostObserver
      * @param Post $post
      * @return void
      */
-    protected function saveImage(Post $post){
+    protected function saveImage(Post $post)
+    {
         $resize = Image::make($post->img->getRealPath())
             ->resize(700, 700, function ($constraint) {
                 $constraint->aspectRatio();

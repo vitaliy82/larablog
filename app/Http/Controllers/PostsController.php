@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Entities\Post;
 use App\Http\Requests;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\PostCreateRequest;
-use App\Http\Requests\PostUpdateRequest;
 use App\Repositories\PostRepository;
 use App\Validators\PostValidator;
-use App\Entities\Post;
+use Illuminate\Http\Request;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class PostsController.
@@ -50,6 +47,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = $this->postRepository->paginate(3, request()->page);
+
         return view('posts.index', compact('posts'));
     }
 
@@ -62,27 +60,29 @@ class PostsController extends Controller
      */
     public function create()
     {
-        if (auth()->user()->can('create', Post::class)) {
-            return view('posts.create');
+        if ($permission = $this->hasPermission('create')) {
+            return $permission;
         }
-        return redirect()->route('post.index')->with('error', 'permission denied.');
+
+        return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  PostCreateRequest $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(PostCreateRequest $request)
+    public function store(Request $request)
     {
+        if ($permission = $this->hasPermission('create')) {
+            return $permission;
+        }
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-
             $request->merge(['text' => resolve('stopWord')->filter($request->all()['text'])]);
             $post = $this->postRepository->create($request->all());
 
@@ -116,26 +116,28 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = $this->postRepository->find($id);
-        if (auth()->user()->can('update', $post)) {
-            return view('posts.edit', compact('post'));
+        if ($permission = $this->hasPermission('update', $id)) {
+            return $permission;
         }
 
-        return redirect()->route('post.index')->with('error', 'permission denied.');
+        return view('posts.edit', ['post' => $this->postRepository->find($id)]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  PostUpdateRequest $request
+     * @param Request $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(PostUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        if ($permission = $this->hasPermission('update', $id)) {
+            return $permission;
+        }
         try {
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
             $request->merge(['text' => resolve('stopWord')->filter($request->all()['text'])]);
@@ -158,8 +160,26 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
+        if ($permission = $this->hasPermission('delete', $id)) {
+            return $permission;
+        }
         $this->postRepository->delete($id);
 
         return redirect()->route('post.index')->with('success', 'Post deleted.');
     }
+
+    /**
+     * @param String $action
+     * @param null $id
+     * @return bool|\Illuminate\Http\RedirectResponse
+     */
+    protected function hasPermission(String $action, $id = null)
+    {
+        $post = is_null($id) ? Post::class : $this->postRepository->find($id);
+        if (!auth()->user() || !auth()->user()->can($action, $post)) {
+            return redirect()->route('post.index')->with('error', 'permission denied.');
+        }
+        return false;
+    }
+
 }

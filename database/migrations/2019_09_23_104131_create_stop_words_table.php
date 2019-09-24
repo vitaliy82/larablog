@@ -18,7 +18,6 @@ class CreateStopWordsTable extends Migration
 		Schema::create('stop_words', function(Blueprint $table) {
             $table->increments('id');
 			$table->string('word')->word();
-
             $table->timestamps();
 		});
 	}
